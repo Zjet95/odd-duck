@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -28,41 +28,57 @@ main {
   z-index: 2;
 }
 
-section {
+/* section {
   /* This element will be a grid item, but also a flex container */
-  background-color: rgba(211, 187, 176, 0.3);
-  padding: 2rem;
-  /* The numbers below refer to the line numbers, not the columns or rows */
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 4;
-  display: flex;
-  justify-content: space-between;
-}
 
-section img {
-  width: 460px;
-  max-height: 26rem;
-  border: 5dpx solid transparent;
-}
+  body{
+    background-color: bisque;
+    width: fixed;
+  
+  }
+  
+  h1{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 5em;
+  }
+  
+  #img-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  img{
+    height: 350px;
+    width: 350px;
+    border-style: solid;
+    border-width: 2px;
+  }
+  
+  #show-results-btn{
+    width: max-content;
+    padding: 20px;
+    background-color: gray;
+    margin: 20px;
+    border-radius: 20px;
+    
+  }
+  
+  ul {
+    width: max-content;
+    margin: auto;
+  }
+  li{
+    line-height: 25px;
+  }
 
-section img:hover {
-  cursor: pointer;
-  border:5px solid rgb(169, 108, 28);
-}
+  #header1:hover{
+    border-radius: 300px;
+  -webkit-transition: -webkit-transform 2s ease-in-out;
+  transition: transform 2s ease-in-out;
+    -webkit-transform: translate(50%, -50%);
+    transform: rotateY(360deg) ; 
+  }
 
-ul {
-  margin: 1rem;
-}
-
-/* -- button -- */
-section + div {
-  background-color: rgba(128, 128, 128, 0.734);
-  color: lightgrey;
-  padding: .5rem 1rem;
-  width: max-content;
-  height: max-content;
-  font-size: .8rem;
-  margin: 1rem;
-}
+  
