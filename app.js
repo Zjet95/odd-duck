@@ -149,6 +149,12 @@ function handleResults() {
 }
 
 // ***** EXECUTABLE CODE *****
+let storedPictures = localStorage.getItem('myPictures');
+let parsedData = JSON.parse(storedPictures);
+
+if (storedPictures) {
+  picArray = parsedData;
+} else {
 let bag = new RandomImage('bag');
 let banana = new RandomImage('banana');
 let bathroom = new RandomImage('bathroom');
@@ -172,6 +178,7 @@ let wineGlass = new RandomImage('wine-glass');
 
 
 picArray.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
+}
 
 renderImg();
 
