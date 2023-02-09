@@ -9,7 +9,7 @@ let picArray = [];
 // variable created to represent how many voting rounds there are going to be.
 let votingRounds = 25;
 let numberOfMatchupsAllowed = 0;
-
+let preIndex = [-1, -1, -1];
 //Creation Of DOM Windows, This is the entry way into creating elements through javascript that render to your HTML document. 
 
 let imgContainer = document.getElementById('img-container');
@@ -18,7 +18,7 @@ let imgTwo = document.getElementById('img-two');
 let imgThree = document.getElementById('img-three');
 
 let resultsBtn = document.getElementById('show-results-btn');
-let resultslist = document.getElementById('results-container');
+let canvasElem = document.getElementById('myChart');
 
 // ***** CONSTRUCTOR FUNCTION *****
 
@@ -47,6 +47,20 @@ function renderImg() {
     imgThreeIndex = randomIndex();
   }
 
+  while (preIndex.includes(imgTwoIndex) || imgOneIndex === imgTwoIndex || imgTwoIndex === imgThreeIndex) {
+    imgTwoIndex = randomIndex();
+  }
+
+  while (preIndex.includes(imgThreeIndex) || imgThreeIndex === imgTwoIndex || imgOneIndex === imgThreeIndex) {
+    imgThreeIndex = randomIndex();
+  }
+
+  preIndex[0] = imgOneIndex;
+  preIndex[1] = imgTwoIndex;
+  preIndex[2] = imgThreeIndex;
+  console.log(preIndex);
+
+
   imgOne.src = picArray[imgOneIndex].img;
   imgTwo.src = picArray[imgTwoIndex].img;
   imgThree.src = picArray[imgThreeIndex].img;
@@ -57,8 +71,49 @@ function renderImg() {
   imgThree.title = picArray[imgThreeIndex].name;
   imgThree.alt = `this is an image of ${picArray[imgThreeIndex].name}`;
 
+  picArray[imgOneIndex].views++;
   picArray[imgTwoIndex].views++;
   picArray[imgThreeIndex].views++;
+}
+
+function renderChart() {
+  let pictureName = [];
+  let pictureVotes = [];
+  let pictureViews = [];
+
+  for (let i = 0; i < picArray.length; i++) {
+    pictureName.push(picArray[i].name);
+    pictureVotes.push(picArray[i].votes);
+    pictureViews.push(picArray[i].views);
+  }
+
+  let chartObj = {
+    type: 'bar',
+    data: {
+      labels: pictureName,
+      datasets: [{
+        label: '# of Votes',
+        data: pictureVotes,
+        borderWidth: 1
+
+      },
+      {
+        label: '# of Views',
+        data: pictureViews,
+        borderWidth: 1
+
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+  new Chart(canvasElem, chartObj);
 }
 
 // ***** EVENT HANDLERS*****
@@ -81,14 +136,15 @@ function handleClick(event) {
   }
 }
 
-function handleResults(){
-  if(votingRounds === 0){
-    for(let i = 0; i < picArray.length; i++){
-      let liElem = document.createElement('li');
-      liElem.textContent = `${picArray[i].name} - views: ${picArray[i].views} & votes: ${picArray[i].votes}`;
-      resultslist.appendChild(liElem);
-    }
-    resultsBtn.removeEventListener('click', handleResults);
+function handleResults() {
+  if (votingRounds === 0) {
+    // for(let i = 0; i < picArray.length; i++){
+    //   let liElem = document.createElement('li');
+    //   liElem.textContent = `${picArray[i].name} - views: ${picArray[i].views} & votes: ${picArray[i].votes}`;
+    //   resultslist.appendChild(liElem);
+    // }
+    // resultsBtn.removeEventListener('click', handleResults);
+    renderChart();
   }
 }
 
