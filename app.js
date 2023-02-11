@@ -134,6 +134,9 @@ function handleClick(event) {
   if(votingRounds === 0){
     imgContainer.removeEventListener('click', handleClick);
   }
+  let stringifiedPictures = JSON.stringify(picArray);
+  localStorage.setItem('myPictures', stringifiedPictures);
+  console.log('Stringified data', stringifiedPictures);
 }
 
 function handleResults() {
