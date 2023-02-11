@@ -137,7 +137,6 @@ function handleClick(event) {
   let stringifiedPictures = JSON.stringify(picArray);
   localStorage.setItem('myPictures', stringifiedPictures);
   console.log('Stringified data', stringifiedPictures);
-
 }
 
 function handleResults() {
